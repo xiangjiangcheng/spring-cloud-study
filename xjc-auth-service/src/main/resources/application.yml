@@ -1,0 +1,15 @@
+server:
+  port: 18083
+
+spring:
+  application:
+    name: xjc-auth-service
+  profiles:
+    active: dev
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url: #注册地址
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

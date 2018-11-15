@@ -1,0 +1,26 @@
+server:
+  port: 18080
+
+spring:
+  application:
+    name: xjc-zuul-service
+  profiles:
+    active: dev
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url: #注册地址
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+# 下面整个树都非必须，如果不配置，将默认使用 http://GATEWAY:GATEWAY_PORT/想要访问的Eureka服务id的小写/** 路由到：http://想要访问的Eureka服务id的小写:该服务端口/**
+zuul:
+  #ignored-services: xjc-core-service         # 需要忽视的服务(配置后将不会被路由)
+  routes:
+    core:                                               # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /core/**                                    # 想要映射到的路径
+      service-id: xjc-core-service           # Eureka中的serviceId
+    auth:                                               # auth:这个可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /auth/**                                    # 想要映射到的路径
+      service-id: xjc-auth-service           # Eureka中的serviceId
