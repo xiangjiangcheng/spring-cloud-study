@@ -18,6 +18,7 @@
     <module>xjc-entity-service</module>
     <module>xjc-mapper-service</module>
     <module>xjc-service-service</module>
+    <module>xjc-common-service</module>
   </modules>
 
 </project>
