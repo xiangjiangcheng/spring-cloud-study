@@ -1,7 +1,7 @@
 spring:
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver  #mysql6 的驱动类
-      url: jdbc:mysql://132.232.54.105:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+      url: jdbc:mysql://132.232.54.105:3306/xjc?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
       username: root
       password: 123456
       type: com.alibaba.druid.pool.DruidDataSource
