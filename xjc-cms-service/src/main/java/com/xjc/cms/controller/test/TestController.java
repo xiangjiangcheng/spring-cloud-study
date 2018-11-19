@@ -23,12 +23,21 @@ public class TestController {
     private ITestService testService;
 
     /**
+     * to home.html
+     */
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String home() {
+        return "home";
+    }
+
+
+    /**
      * hello
      */
     @RequestMapping(value = "hello", method = RequestMethod.GET)
     @ResponseBody
     public String hello() {
-        return "hello 幺儿";
+        return "hello IDEA";
     }
 
     /**

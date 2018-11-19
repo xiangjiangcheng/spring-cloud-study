@@ -10,7 +10,19 @@ spring:
         max-active: 20
         min-idle: 5
         initial-size: 5
+  thymeleaf:   #thymelea模板配置
+      cache: false
+      suffix: .html
+      mode: LEGACYHTML5
+      encoding: UTF-8
+      servlet:
+        content-type: text/html
+      prefix: classpath:/templates/views/
 
+  mvc:
+    static-path-pattern: /static/**  #静态资源访问  等同于WebMvcConfig.addResourceHandlers()
+#  resources:
+#    static-locations: classpath:/static/ #@{}表示的是调用静态资源那一块，也就是你设置的spring.resources.static-locations=classpath:/static/这里面的内容
 
 # mybatis
 mybatis:
@@ -22,7 +34,7 @@ mybatis:
 
 #pagehelper分页插件
 pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
+  elperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

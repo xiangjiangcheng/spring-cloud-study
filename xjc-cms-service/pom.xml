@@ -94,6 +94,11 @@
             <artifactId>xjc-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.xjc</groupId>
+            <artifactId>xjc-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
