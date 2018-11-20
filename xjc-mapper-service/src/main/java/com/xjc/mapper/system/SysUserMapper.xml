@@ -33,4 +33,12 @@
     salt, user_type, status, refuse_des, login_ip, login_date, create_by, create_time, 
     update_by, update_time
   </sql>
+
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from sys_user where user_name = #{username}
+  </select>
+
+  <select id="selectUserByMobilePhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from sys_user where phonenumber = #{phoneNumber}
+  </select>
 </mapper>

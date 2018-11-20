@@ -23,4 +23,13 @@
     role_id, role_name, role_key, role_sort, status, create_by, create_time, update_by, 
     update_time, remark
   </sql>
+
+  <select id="selectRolesByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      SELECT r.role_id, r.role_name, r.role_key
+      FROM sys_user u
+           LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
+           LEFT JOIN sys_role r ON ur.role_id = r.role_id
+      WHERE ur.user_id = #{userId}
+  </select>
+
 </mapper>

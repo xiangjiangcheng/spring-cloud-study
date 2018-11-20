@@ -115,6 +115,30 @@ public class SysUser implements Serializable{
     @Column(name = "update_time")
     private Date updateTime;
 
+    /** 角色组 */
+    @Transient
+    private Integer[] roleIds;
+
+    /** 岗位组 */
+    @Transient
+    private Integer[] postIds;
+
+    public Integer[] getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(Integer[] roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public Integer[] getPostIds() {
+        return postIds;
+    }
+
+    public void setPostIds(Integer[] postIds) {
+        this.postIds = postIds;
+    }
+
     /**
      * 获取用户ID
      *

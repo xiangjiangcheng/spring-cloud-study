@@ -9,6 +9,7 @@ public class SysMenu {
      * 菜单ID
      */
     @Id
+    @GeneratedValue(generator="JDBC")  //加了该注解 新增自动返回ID
     @Column(name = "menu_id")
     private Integer menuId;
 

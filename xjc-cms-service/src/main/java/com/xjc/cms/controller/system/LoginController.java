@@ -3,6 +3,7 @@ package com.xjc.cms.controller.system;
 import com.common.model.R;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class LoginController {
 
     @RequestMapping("/sys/do_login")
+    @ResponseBody
     public Map<String, Object> ajaxLogin(String username, String password, Boolean rememberMe) {
 
 

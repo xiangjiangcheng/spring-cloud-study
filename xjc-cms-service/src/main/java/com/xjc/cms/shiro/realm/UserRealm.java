@@ -1,5 +1,10 @@
 package com.xjc.cms.shiro.realm;
 
+import com.xjc.common.security.ShiroUtils;
+import com.xjc.entity.system.SysUser;
+import com.xjc.service.system.ILoginService;
+import com.xjc.service.system.IMenuService;
+import com.xjc.service.system.IRoleService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -18,14 +23,14 @@ public class UserRealm extends AuthorizingRealm
 {
     private static final Logger log = LoggerFactory.getLogger(UserRealm.class);
 
-    /*@Autowired
+    @Autowired
     private IMenuService menuService;
 
     @Autowired
     private IRoleService roleService;
 
     @Autowired
-    private LoginService loginService;*/
+    private ILoginService loginService;
 
     /**
      * 授权
@@ -33,15 +38,13 @@ public class UserRealm extends AuthorizingRealm
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0)
     {
-        /*Long userId = ShiroUtils.getUserId();
+        Integer userId = ShiroUtils.getUserId();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         // 角色加入AuthorizationInfo认证对象
         info.setRoles(roleService.selectRoleKeys(userId));
         // 权限加入AuthorizationInfo认证对象
-        info.setStringPermissions(menuService.selectPermsByUserId(userId));*/
-        // return info;
-
-        return null;
+        info.setStringPermissions(menuService.selectPermsByUserId(userId));
+        return info;
     }
 
     /**
@@ -58,12 +61,12 @@ public class UserRealm extends AuthorizingRealm
             password = new String(upToken.getPassword());
         }
 
-        /*User user = null;
+        SysUser user = null;
         try
         {
             user = loginService.login(username, password);
         }
-        catch (CaptchaException e)
+        /*catch (CaptchaException e)
         {
             throw new AuthenticationException(e.getMessage(), e);
         }
@@ -86,15 +89,15 @@ public class UserRealm extends AuthorizingRealm
         catch (RoleBlockedException e)
         {
             throw new LockedAccountException(e.getMessage(), e);
-        }
+        }*/
         catch (Exception e)
         {
             log.info("对用户[" + username + "]进行登录验证..验证未通过{}", e.getMessage());
             throw new AuthenticationException(e.getMessage(), e);
         }
+        // 验证通过
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
-        return info;*/
-        return null;
+        return info;
     }
 
     /**
