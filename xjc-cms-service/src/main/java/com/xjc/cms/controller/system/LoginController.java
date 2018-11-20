@@ -18,7 +18,7 @@ import java.util.Map;
 public class LoginController {
 
     @RequestMapping("/sys/do_login")
-    public Map<String, Object> login() {
+    public Map<String, Object> ajaxLogin(String username, String password, Boolean rememberMe) {
 
 
         return R.SUCCESS_MAP;

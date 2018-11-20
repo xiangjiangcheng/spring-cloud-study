@@ -11,3 +11,7 @@ spring boot + mybatis
 http://www.zuidaima.com/share/3838995922455552.htm?f=archive_zip
 
 https://www.cnblogs.com/zhaojiatao/p/8482998.html
+
+shiro:
+http://www.cnblogs.com/ityouknow/p/7089177.html
+http://blog.51cto.com/wyait/2082803

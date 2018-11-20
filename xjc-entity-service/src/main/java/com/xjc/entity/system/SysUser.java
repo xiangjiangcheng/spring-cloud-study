@@ -1,10 +1,12 @@
 package com.xjc.entity.system;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sys_user")
-public class SysUser {
+public class SysUser implements Serializable{
+
     /**
      * 用户ID
      */
