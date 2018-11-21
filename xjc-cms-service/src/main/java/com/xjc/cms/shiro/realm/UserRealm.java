@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class UserRealm extends AuthorizingRealm
 {
-    private static final Logger log = LoggerFactory.getLogger(UserRealm.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
 
     @Autowired
     private IMenuService menuService;
@@ -49,10 +49,12 @@ public class UserRealm extends AuthorizingRealm
 
     /**
      * 登录认证
+     * 主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException
     {
+        logger.info("shiro -> realm ： doGetAuthenticationInfo 身份认证 开始校验账号密码是否正确");
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
         String username = upToken.getUsername();
         String password = "";
@@ -92,7 +94,7 @@ public class UserRealm extends AuthorizingRealm
         }*/
         catch (Exception e)
         {
-            log.info("对用户[" + username + "]进行登录验证..验证未通过{}", e.getMessage());
+            logger.info("对用户[" + username + "]进行登录验证..验证未通过{}", e.getMessage());
             throw new AuthenticationException(e.getMessage(), e);
         }
         // 验证通过

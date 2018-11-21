@@ -19,4 +19,8 @@
     -->
     id, username, password, state, name, gender, birth
   </sql>
+
+  <select id="queryUserByUsername" resultType="com.xjc.entity.test.TblUser" parameterType="java.lang.String">
+    SELECT * FROM tbl_user WHERE username = #{username}
+  </select>
 </mapper>

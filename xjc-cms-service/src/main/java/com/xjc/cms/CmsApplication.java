@@ -9,8 +9,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@MapperScan("com.xjc.mapper.*")
 @EntityScan(basePackages = "com.xjc.entity.*")
-@MapperScan(basePackages = "com.xjc.mapper.*")
 @ComponentScan("com.xjc.*")
 public class CmsApplication {
 

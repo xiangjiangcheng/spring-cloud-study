@@ -21,7 +21,7 @@ function login() {
     var rememberMe = $("input[name='rememberme']").is(':checked');
     $.ajax({
         type: "POST",
-        url: "do_login",
+        url: ctx + "login",
         data: {
             "username": username,
             "password": password,
@@ -29,7 +29,7 @@ function login() {
             "rememberMe": rememberMe
         },
         success: function(r) {
-            if (r.code == 0) {
+            if (r.code == 200) {
                 parent.location.href = ctx + 'index';
             } else {
             	$('.imgcode').click();

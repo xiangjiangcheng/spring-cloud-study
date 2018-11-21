@@ -3,6 +3,7 @@ package com.xjc.cms.config;
 import com.xjc.cms.shiro.realm.UserRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
@@ -26,8 +27,8 @@ public class ShiroConfig {
 
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件过滤器
-     *  </br>1,配置shiro安全管理器接口securityManage;
-     *  </br>2,shiro 连接约束配置filterChainDefinitions;
+     * 1,配置shiro安全管理器接口securityManage;
+     * 2,shiro连接约束配置filterChainDefinitions;
      */
     @Bean public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         //shiroFilterFactoryBean对象
@@ -36,27 +37,27 @@ public class ShiroConfig {
         // 配置shiro安全管理器 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        // 指定要求登录时的链接
-        shiroFilterFactoryBean.setLoginUrl("/sys/g_login");
+        // 身份认证失败，则跳转到登录页面的配置
+        shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
-        // 未授权时跳转的界面;
+        // 未授权时跳转的界面
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
-        // filterChainDefinitions拦截器
+        // Shiro连接约束配置，即过滤链的定义
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // 配置不会被拦截的链接 从上向下顺序判断
+        // 1.对静态资源设置匿名访问
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/templates/**", "anon");
 
-        // 配置退出过滤器,具体的退出代码Shiro已经替我们实现了
+        // 配置退出过滤器,shiro去清除session,具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
-        //add操作，该用户必须有【addOperation】权限
-        filterChainDefinitionMap.put("/add", "perms[addOperation]");
+        // 不需要拦截的访问
+        filterChainDefinitionMap.put("/sys/g_login", "anon");
+        filterChainDefinitionMap.put("/sys/test/q_user_list", "anon");
 
-        // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问【放行】-->
-        filterChainDefinitionMap.put("/user/**", "authc");
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         logger.debug("Shiro拦截器工厂类注入成功");
@@ -91,15 +92,15 @@ public class ShiroConfig {
     }
 
     /**
-     * ehcache缓存管理器；shiro整合ehcache：
-     * 通过安全管理器：securityManager
-     * @return EhCacheManager
+     *  开启shiro aop注解支持.
+     *  使用代理方式;所以需要开启代码支持;
+     * @param securityManager
+     * @return
      */
-    /*@Bean
-    public EhCacheManager ehCacheManager() {
-        logger.debug("=====shiro整合ehcache缓存：ShiroConfiguration.getEhCacheManager()");
-        EhCacheManager cacheManager = new EhCacheManager();
-        cacheManager.setCacheManagerConfigFile("classpath:ehcache/ehcache-shiro.xml");
-        return cacheManager;
-    }*/
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
 }

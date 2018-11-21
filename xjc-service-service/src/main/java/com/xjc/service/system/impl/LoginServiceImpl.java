@@ -24,6 +24,7 @@ public class LoginServiceImpl implements ILoginService {
     /**
      * 登录
      */
+    @Override
     public SysUser login(String username, String password) throws Exception {
         // 验证码校验
 
@@ -83,6 +84,5 @@ public class LoginServiceImpl implements ILoginService {
         //System.out.println(new PasswordService().encryptPassword("ry", "admin123", "222222"));
         System.out.println(new LoginServiceImpl().encryptPassword("ly", "admin123", "123456"));
     }
-
 
 }

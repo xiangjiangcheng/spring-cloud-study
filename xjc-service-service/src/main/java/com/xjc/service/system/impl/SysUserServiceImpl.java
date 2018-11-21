@@ -12,10 +12,13 @@ public class SysUserServiceImpl implements ISysUserService {
     @Autowired
     private SysUserMapper userMapper;
 
+    @Override
     public SysUser selectUserByUsername(String username) {
         return userMapper.selectUserByUsername(username);
+        // return userMapper.selectByPrimaryKey(1);
     }
 
+    @Override
     public SysUser selectUserByMobilePhone(String phoneNumber) {
         return userMapper.selectUserByMobilePhone(phoneNumber);
     }

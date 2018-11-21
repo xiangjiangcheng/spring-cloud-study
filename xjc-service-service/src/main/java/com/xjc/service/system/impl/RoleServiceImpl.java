@@ -24,6 +24,7 @@ public class RoleServiceImpl implements IRoleService {
      * @param userId 用户ID
      * @return 权限列表
      */
+    @Override
     public Set<String> selectRoleKeys(Integer userId) {
 
         List<SysRole> perms = roleMapper.selectRolesByUserId(userId);

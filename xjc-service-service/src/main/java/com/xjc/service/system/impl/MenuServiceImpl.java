@@ -23,6 +23,7 @@ public class MenuServiceImpl implements IMenuService {
      * @param userId 用户ID
      * @return 权限列表
      */
+    @Override
     public Set<String> selectPermsByUserId(Integer userId) {
         List<String> perms = menuMapper.selectPermsByUserId(userId);
         Set<String> permsSet = new HashSet<String>();

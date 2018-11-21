@@ -34,7 +34,7 @@
     update_by, update_time
   </sql>
 
-  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="selectUserByUsername" resultType="com.xjc.entity.system.SysUser" parameterType="java.lang.String">
     select * from sys_user where user_name = #{username}
   </select>
 
