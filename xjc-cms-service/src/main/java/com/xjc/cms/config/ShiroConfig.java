@@ -27,8 +27,8 @@ public class ShiroConfig {
 
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件过滤器
-     * 1,配置shiro安全管理器接口securityManage;
-     * 2,shiro连接约束配置filterChainDefinitions;
+     * 1：配置shiro安全管理器接口securityManage;
+     * 2：shiro连接约束配置filterChainDefinitions;
      */
     @Bean public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         //shiroFilterFactoryBean对象
@@ -37,7 +37,7 @@ public class ShiroConfig {
         // 配置shiro安全管理器 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        // 身份认证失败，则跳转到登录页面的配置
+        // 身份认证失败，则直接跳转到登录页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
