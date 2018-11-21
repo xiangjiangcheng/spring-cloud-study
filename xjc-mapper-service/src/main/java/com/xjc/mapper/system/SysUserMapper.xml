@@ -35,7 +35,7 @@
   </sql>
 
   <select id="selectUserByUsername" resultType="com.xjc.entity.system.SysUser" parameterType="java.lang.String">
-    select * from sys_user where user_name = #{username}
+    select * from sys_user where login_name = #{username}
   </select>
 
   <select id="selectUserByMobilePhone" resultMap="BaseResultMap" parameterType="java.lang.String">

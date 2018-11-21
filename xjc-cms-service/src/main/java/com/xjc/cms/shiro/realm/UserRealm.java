@@ -56,6 +56,7 @@ public class UserRealm extends AuthorizingRealm
     {
         logger.info("shiro -> realm ： doGetAuthenticationInfo 身份认证 开始校验账号密码是否正确");
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
+        //获取用户的输入的账号
         String username = upToken.getUsername();
         String password = "";
         if (upToken.getPassword() != null)
