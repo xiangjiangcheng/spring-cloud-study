@@ -1,7 +1,9 @@
 package com.xjc.service.system.impl;
 
+import com.xjc.entity.system.SysMenu;
 import com.xjc.mapper.system.SysMenuMapper;
 import com.xjc.service.system.IMenuService;
+import com.xjc.utils.TreeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -29,11 +31,20 @@ public class MenuServiceImpl implements IMenuService {
         Set<String> permsSet = new HashSet<String>();
         for (String perm : perms)
         {
-            if (ObjectUtils.isEmpty(perm))
+            if (!ObjectUtils.isEmpty(perm))
             {
                 permsSet.addAll(Arrays.asList(perm.trim().split(",")));
             }
         }
         return permsSet;
+    }
+
+    @Override
+    public List<SysMenu> selectMenusByUserId(Integer userId) {
+        List<SysMenu> menus = menuMapper.selectMenusByUserId(userId);
+        // 处理菜单
+        List<SysMenu> childPerms = TreeUtils.getChildPerms(menus, 0);
+
+        return childPerms;
     }
 }

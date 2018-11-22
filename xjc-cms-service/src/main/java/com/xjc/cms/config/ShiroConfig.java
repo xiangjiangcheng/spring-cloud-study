@@ -1,5 +1,6 @@
 package com.xjc.cms.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.xjc.cms.shiro.realm.UserRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -58,6 +59,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/sys/g_login", "anon");
         filterChainDefinitionMap.put("/sys/test/q_user_list", "anon");
 
+        // 授权过滤器
+        // 注意：当前授权失败后，shiro会自动跳转到未授权界面
+        // filterChainDefinitionMap.put("/sys/g_main", "perms[user:add]");
+
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -103,5 +108,14 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * 配置shiroDialect 用于thymeleaf模板引擎和shiro框架的整合 thymeleaf中使用shiro标签
+     */
+    @Bean
+    public ShiroDialect shiroDialect()
+    {
+        return new ShiroDialect();
     }
 }

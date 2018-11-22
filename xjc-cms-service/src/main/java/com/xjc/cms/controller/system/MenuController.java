@@ -28,4 +28,10 @@ public class MenuController {
         return "login";
     }
 
+    @RequestMapping("g_main")
+    public String goMain() {
+        return "main";
+    }
+
+
 }

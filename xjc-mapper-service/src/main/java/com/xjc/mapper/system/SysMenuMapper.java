@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SysMenuMapper extends Mapper<SysMenu> {
     List<String> selectPermsByUserId(Integer userId);
+
+    List<SysMenu> selectMenusByUserId(Integer userId);
 }

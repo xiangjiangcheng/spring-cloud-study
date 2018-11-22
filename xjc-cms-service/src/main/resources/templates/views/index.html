@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>若依管理系统首页</title>
-    <meta name="keywords" content="若依管理系统首页">
-    <meta name="description" content="若依管理系统首页">
+    <title>向帅帅管理系统首页</title>
+    <meta name="keywords" content="向帅帅管理系统首页">
+    <meta name="description" content="向帅帅管理系统首页">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
@@ -45,13 +45,13 @@
                  <li class="active">
                     <a href="index.html"><i class="fa fa-home"></i> <span class="nav-label">主页</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li class="active"><a class="menuItem" th:href="@{/system/main}">了解若依</a></li>
+                        <li class="active"><a class="menuItem" th:href="@{/sys/g_main}">了解向帅帅</a></li>
                     </ul>
                 </li>
-                <!--<li th:each="menu : ${menus}">
+                <li th:each="menu : ${menus}">
                 	<a href="#">
                 		<i class="fa fa fa-bar-chart-o" th:class="${menu.icon}"></i>
-                    	<span class="nav-label" th:text="${menu.menuName}">一级菜单</span> 
+                    	<span class="nav-label" th:text="${menu.menuName}">一级菜单</span>
                     	<span class="fa arrow"></span>
                 	</a>
                    <ul class="nav nav-second-level collapse">
@@ -59,7 +59,7 @@
                         	<a class="menuItem" th:text="${cmenu.menuName}" th:href="@{${cmenu.url}}">二级菜单</a>
                         </li>
                     </ul>
-                </li>-->
+                </li>
             </ul>
         </div>
     </nav>
@@ -83,7 +83,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
 	                <li>
-	                    <span class="m-r-sm text-muted welcome-message">欢迎来到若依管理后台.</span>
+	                    <span class="m-r-sm text-muted welcome-message">欢迎来到向帅帅管理后台.</span>
 	                </li>
                     <li class="hidden-xs"><a th:href="@{logout}"><i class="fa fa-sign-out"></i>退出</a></li>
                 </ul>
@@ -95,7 +95,7 @@
             </button>
             <nav class="page-tabs menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active menuTab" data-id="/system/main">首页</a>
+                    <a href="javascript:;" class="active menuTab" data-id="/sys/g_main">首页</a>
                 </div>
             </nav>
             <button class="roll-nav roll-right tabRight">
@@ -114,8 +114,8 @@
             <a href="#" class="roll-nav roll-right tabReload"><i class="fa fa-refresh"></i> 刷新</a>
         </div>
         <div class="row mainContent" id="content-main">
-            <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="/system/main"
-                    th:src="@{/system/main}" frameborder="0" seamless></iframe>
+            <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="/sys/g_main"
+                    th:src="@{/sys/g_main}" frameborder="0" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">© [[${copyrightYear}]] RuoYi Copyright </div>

@@ -1,6 +1,8 @@
 package com.xjc.entity.system;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "sys_menu")
@@ -85,6 +87,19 @@ public class SysMenu {
      * 备注
      */
     private String remark;
+
+    /**
+     * 子菜单
+     */
+    private List<SysMenu> children = new ArrayList<SysMenu>();
+
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
+    }
 
     /**
      * 获取菜单ID

@@ -35,6 +35,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+        logger.info("shiro -> realm ： doGetAuthorizationInfo 授权开始");
         Integer userId = ShiroUtils.getUserId();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         // 角色加入AuthorizationInfo认证对象

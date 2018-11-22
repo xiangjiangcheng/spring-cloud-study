@@ -33,14 +33,6 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /**
-     * 跳转到首页
-     */
-    @RequestMapping({"/", "/index"})
-    public String index() {
-        return "/index";
-    }
-
-    /**
      * 跳转到登录页面
      */
     @GetMapping("/g_login")
