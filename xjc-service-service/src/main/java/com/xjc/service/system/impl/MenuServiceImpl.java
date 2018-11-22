@@ -47,4 +47,9 @@ public class MenuServiceImpl implements IMenuService {
 
         return childPerms;
     }
+
+    @Override
+    public List<SysMenu> selectAllMenu() {
+        return menuMapper.selectAll();
+    }
 }

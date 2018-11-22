@@ -9,4 +9,6 @@ public interface IMenuService {
     Set<String> selectPermsByUserId(Integer userId);
 
     List<SysMenu> selectMenusByUserId(Integer userId);
+
+    List<SysMenu> selectAllMenu();
 }
