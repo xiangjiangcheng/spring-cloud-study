@@ -38,7 +38,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         // 身份认证失败，则直接跳转到登录页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/g_login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
         // 未授权时跳转的界面
@@ -54,6 +54,7 @@ public class ShiroConfig {
         // 配置退出过滤器,shiro去清除session,具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
+        filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/sys/g_login", "anon");
         filterChainDefinitionMap.put("/sys/test/q_user_list", "anon");
 

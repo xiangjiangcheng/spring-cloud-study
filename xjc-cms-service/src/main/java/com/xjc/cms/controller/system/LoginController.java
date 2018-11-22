@@ -24,7 +24,7 @@ import java.util.Map;
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * <p>
  * Created by xiangjiangcheng on 2018/11/19 11:21.
- *
+ * <p>
  * 登录控制器
  */
 @Controller
@@ -35,17 +35,16 @@ public class LoginController {
     /**
      * 跳转到首页
      */
-    @RequestMapping({"/","/index"})
-    public String index(){
-        return"/index";
+    @RequestMapping({"/", "/index"})
+    public String index() {
+        return "/index";
     }
 
     /**
      * 跳转到登录页面
      */
-    @GetMapping("/login")
-    public String login()
-    {
+    @GetMapping("/g_login")
+    public String login() {
         return "login";
     }
 
@@ -54,79 +53,42 @@ public class LoginController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public Map<String, Object> ajaxLogin(String username, String password, Boolean rememberMe)
-    {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+    public Map<String, Object> ajaxLogin(String username, String password, Boolean rememberMe) {
+        /**
+         * 使用Shiro 编写登录逻辑
+         * 请求来了之后，shiro会自己去验证登录 1.若登录成功 跳转到index页面 2.若登录失败 进入这里 在login里面处理异常 提示前端页面错误信息
+         */
+        // 1.获取subject
         Subject subject = SecurityUtils.getSubject();
-        try
-        {
+        // 2.封装前端传过来的用户数据
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+
+        // 错误信息
+        Map<String, Object> error = new HashMap<>();
+        String msg = "";
+        error.put("code", 500);
+        try {
+            // 3.执行登录方法 执行下面subject的login方法，一定会执行Realm里面的认证方法
+            // 没有任何异常：表示认证成功！
+            // 返之，认证失败 shiro会抛异常 这里我们捕获异常，做对应的页面跳转
             subject.login(token);
             return R.SUCCESS_MAP;
-        }
-        catch (AuthenticationException e)
-        {
-            String msg = "用户或密码错误";
-            if (StringUtils.isNotEmpty(e.getMessage()))
-            {
-                msg = e.getMessage();
-            }
-            Map<String, Object> error = new HashMap<>();
+        } catch (UnknownAccountException | IncorrectCredentialsException e) {
+            error.put("msg", e.getMessage());
+            return error;
+        } catch (AuthenticationException e) {
+            logger.info("//目前逻辑走不到这里");
+            msg = "用户名或者密码错误";
             error.put("msg", msg);
-            error.put("code", 500);
             return error;
         }
     }
 
     /**
-     * 登录
-     * 请求来了之后，shiro会自己去验证登录 1.若登录成功 跳转到index页面 2.若登录失败 进入这里 在login里面处理异常 提示前端页面错误信息
-     */
-    @RequestMapping("/login2")
-    @ResponseBody
-    public Map<String, Object> ajaxLogin2(HttpServletRequest request, String username, String password, Boolean rememberMe) throws Exception{
-        System.out.println("HomeController.login()");
-        // 此方法不处理登录成功,由shiro进行处理
-        // 登录失败从request中获取shiro处理的异常信息。
-        // shiroLoginFailure:就是shiro异常类的全类名.
-        String exception = (String) request.getAttribute("shiroLoginFailure");
-        System.out.println("exception=" + exception);
-
-        Map<String, Object> returnMap = new HashMap<>();
-        String msg = "";
-        if (exception != null) {
-            if (UnknownAccountException.class.getName().equals(exception)) {
-                System.out.println("UnknownAccountException -- > 账号不存在：");
-                msg = "UnknownAccountException -- > 账号不存在：";
-            } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
-                System.out.println("IncorrectCredentialsException -- > 密码不正确：");
-                msg = "IncorrectCredentialsException -- > 密码不正确：";
-            } else if ("kaptchaValidateFailed".equals(exception)) {
-                System.out.println("kaptchaValidateFailed -- > 验证码错误");
-                msg = "kaptchaValidateFailed -- > 验证码错误";
-            } else {
-                msg = "用户或密码错误";
-                System.out.println("else -- >" + exception);
-            }
-        }
-        returnMap.put("msg", msg);
-        returnMap.put("code", 500);
-        System.out.println("");
-        return returnMap;
-    }
-
-    // @RequestMapping("/sys/logout")
-    // public String logout(SysUser user, HttpServletRequest request) {
-    //     request.getSession().setAttribute(R.LOGIN_USER, null);
-    //     request.getSession().setAttribute("menu", null);
-    //     request.getSession().invalidate();
-    //     return "cmshtm/views/login";
-    // }
-
-    /**
      * 403页面
      */
     @RequestMapping("/403")
-    public String unauthorizedRole(){
+    public String unauthorizedRole() {
         logger.info("------没有权限-------");
         return "/error/403";
     }
