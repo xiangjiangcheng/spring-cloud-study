@@ -58,10 +58,11 @@ public class ShiroConfig {
         // 不需要拦截的访问 不拦截登录请求
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/sys/test/q_user_list", "anon");
+        filterChainDefinitionMap.put("/monitor/druid/*", "anon");
 
         // 授权过滤器
         // 注意：当前授权失败后，shiro会自动跳转到未授权界面
-        filterChainDefinitionMap.put("/system/menu", "perms[user:add]");
+        // filterChainDefinitionMap.put("/system/menu", "perms[user:add]");
 
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/**", "authc");

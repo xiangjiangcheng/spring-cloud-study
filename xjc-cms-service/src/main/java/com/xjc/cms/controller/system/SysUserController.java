@@ -3,6 +3,7 @@ package com.xjc.cms.controller.system;
 import com.common.model.R;
 import com.xjc.entity.system.SysUser;
 import com.xjc.service.system.ISysUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class SysUserController {
     /**
      * 跳转到用户管理界面
      */
+    @RequiresPermissions("system:user:view")
     @GetMapping("")
     public String user() {
         return prefix + "user";

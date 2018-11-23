@@ -2,6 +2,7 @@ package com.xjc.cms.controller.system;
 
 import com.xjc.entity.system.SysMenu;
 import com.xjc.service.system.IMenuService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,11 +32,13 @@ public class MenuController {
     /**
      * 跳转到菜单页面
      */
+    @RequiresPermissions("system:menu:view")
     @GetMapping("")
     public String menu() {
         return prefix + "menu";
     }
 
+    @RequiresPermissions("system:menu:list")
     @GetMapping("/list")
     @ResponseBody
     public Map<String, Object> list() {
