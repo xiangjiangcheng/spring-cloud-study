@@ -14,6 +14,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * 自定义Realm 处理登录 权限
@@ -22,12 +23,15 @@ public class UserRealm extends AuthorizingRealm {
     private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
 
     @Autowired
+    @Lazy
     private IMenuService menuService;
 
     @Autowired
+    @Lazy
     private IRoleService roleService;
 
     @Autowired
+    @Lazy
     private ILoginService loginService;
 
     /**

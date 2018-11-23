@@ -36,6 +36,14 @@ public class LoginController {
      * 跳转到登录页面
      */
     @GetMapping("/g_login")
+    public String goLogin() {
+        return "login";
+    }
+
+    /**
+     * 跳转到登录页面
+     */
+    @GetMapping("/login")
     public String login() {
         return "login";
     }

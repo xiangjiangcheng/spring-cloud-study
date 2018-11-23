@@ -9,6 +9,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -54,14 +55,13 @@ public class ShiroConfig {
 
         // 配置退出过滤器,shiro去清除session,具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
-        // 不需要拦截的访问
+        // 不需要拦截的访问 不拦截登录请求
         filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/sys/g_login", "anon");
         filterChainDefinitionMap.put("/sys/test/q_user_list", "anon");
 
         // 授权过滤器
         // 注意：当前授权失败后，shiro会自动跳转到未授权界面
-        // filterChainDefinitionMap.put("/sys/g_main", "perms[user:add]");
+        filterChainDefinitionMap.put("/system/menu", "perms[user:add]");
 
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/**", "authc");
@@ -75,12 +75,12 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(@Qualifier("ehCacheManager")EhCacheManager ehCacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
         securityManager.setRealm(userRealm());
-        // //注入ehcache缓存管理器;
-        // securityManager.setCacheManager(ehCacheManager());
+        // 注入ehcache缓存管理器
+        securityManager.setCacheManager(ehCacheManager);
         return securityManager;
     }
 
@@ -93,7 +93,7 @@ public class ShiroConfig {
     public UserRealm userRealm()
     {
         UserRealm userRealm = new UserRealm();
-        // userRealm.setCacheManager(cacheManager);
+        userRealm.setCacheManager(ehCacheManager());
         return userRealm;
     }
 
@@ -117,5 +117,18 @@ public class ShiroConfig {
     public ShiroDialect shiroDialect()
     {
         return new ShiroDialect();
+    }
+
+    /**
+     * 配置 cacheManager
+     * 缓存管理，用户登陆成功后，把用户信息和权限信息缓存起来，然后每次用户请求时，放入用户的session中，如果不设置这个bean，每个请求都会查询一次数据库。
+     */
+    @Bean(name = "ehCacheManager")
+    public EhCacheManager ehCacheManager() {
+        logger.info("--------------ehCacheManager init---------------");
+        EhCacheManager cacheManager = new EhCacheManager();
+        cacheManager.setCacheManagerConfigFile("classpath:ehcache/ehcache-shiro.xml");
+        logger.info("--------------ehCacheManager init---------------" + cacheManager);
+        return cacheManager;
     }
 }
