@@ -39,7 +39,7 @@
         <!-- shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-all</artifactId>
+            <artifactId>shiro-core</artifactId>
             <version>RELEASE</version>
         </dependency>
     </dependencies>
