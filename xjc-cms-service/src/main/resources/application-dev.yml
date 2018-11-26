@@ -1,4 +1,9 @@
 spring:
+  session:  #spring session 用redis管理
+    store-type: redis
+    redis:
+      namespace: sessions
+
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver  #mysql6 的驱动类
       url: jdbc:mysql://132.232.54.105:3306/xjc?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false

@@ -2,7 +2,12 @@ server:
   port: 18084
   servlet:
     context-path: /cms
-
+#    session:
+#      timeout: 3600 #会话超时（秒） 1小时
+#      persistent: true  #在重新启动之间持续会话数据。
+#      store-dir: E:\Java\session  # 用于存储会话数据的目录。
+#      cookie:
+#        domain:
 spring:
   application:
     name: xjc-cms-service

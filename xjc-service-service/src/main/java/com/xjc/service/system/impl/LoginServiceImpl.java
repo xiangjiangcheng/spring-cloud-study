@@ -30,6 +30,8 @@ public class LoginServiceImpl implements ILoginService {
     public SysUser login(String username, String password) {
         // 验证码校验
 
+
+
         // 查询用户信息
         SysUser sysUser = sysUserService.selectUserByUsername(username);
         if (sysUser == null && maybeMobilePhoneNumber(username)) {
