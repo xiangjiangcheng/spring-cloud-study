@@ -15,10 +15,11 @@ https://www.cnblogs.com/zhaojiatao/p/8482998.html
 shiro:
 http://www.cnblogs.com/ityouknow/p/7089177.html
 http://blog.51cto.com/wyait/2082803
-
+[Shiro学习](https://blog.csdn.net/qq_34021712/column/info/26947)
 
 spring boot 很全教程: 
 https://github.com/ityouknow/spring-boot-examples
+
 
 ### 遇到的问题
 https://blog.csdn.net/chengyuqiang/article/details/54600499
