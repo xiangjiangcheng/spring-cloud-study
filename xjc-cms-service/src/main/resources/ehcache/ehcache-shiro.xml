@@ -6,8 +6,9 @@
     user.home      – 用户主目录
     user.dir       – 用户当前工作目录
     java.io.tmpdir – 默认临时文件路径 -->
-    <diskStore path="java.io.tmpdir"/>
-
+    <!--<diskStore path="java.io.tmpdir"/>-->
+    <diskStore path="E:\\shiroCache"/>
+    <!-- 授权缓存 -->
     <cache name="authorizationCache"
            maxEntriesLocalHeap="2000"
            eternal="false"
@@ -17,6 +18,7 @@
            statistics="true">
     </cache>
 
+    <!-- 认证缓存 -->
     <cache name="authenticationCache"
            maxEntriesLocalHeap="2000"
            eternal="false"

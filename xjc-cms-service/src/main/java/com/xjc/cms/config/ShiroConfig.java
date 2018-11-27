@@ -59,6 +59,7 @@ public class ShiroConfig {
 
         // 配置退出过滤器,shiro去清除session,具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
+
         // 不需要拦截的访问 不拦截登录请求
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/sys/test/q_user_list", "anon");
@@ -103,6 +104,15 @@ public class ShiroConfig {
     {
         UserRealm userRealm = new UserRealm();
         userRealm.setCacheManager(ehCacheManager());
+        userRealm.setCachingEnabled(true);
+        //启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
+        userRealm.setAuthenticationCachingEnabled(true);
+        //缓存AuthenticationInfo信息的缓存名称 在ehcache-shiro.xml中有对应缓存的配置
+        userRealm.setAuthenticationCacheName("authenticationCache");
+        //启用授权缓存，即缓存AuthorizationInfo信息，默认false
+        userRealm.setAuthorizationCachingEnabled(true);
+        //缓存AuthorizationInfo信息的缓存名称  在ehcache-shiro.xml中有对应缓存的配置
+        userRealm.setAuthorizationCacheName("authorizationCache");
         return userRealm;
     }
 
